@@ -1825,6 +1825,21 @@ body {
   transition: 0.2s background ease-in-out;
   background: linear-gradient(to left, #554346, #45505b) !important;
 }
+.cid-rPCLsxLdfT {
+  padding-top: 105px;
+  padding-bottom: 105px;
+  background: linear-gradient(45deg, #0f7699, #180f99);
+}
+@media (min-width: 992px) {
+  .cid-rPCLsxLdfT .mbr-figure {
+    padding-left: 4rem;
+  }
+}
+@media (max-width: 991px) {
+  .cid-rPCLsxLdfT .mbr-figure {
+    padding-top: 3rem;
+  }
+}
 .cid-rPB8bPHYFq {
   padding-top: 0px;
   padding-bottom: 0px;
