@@ -1089,7 +1089,7 @@ pre {
     display: none;
   }
 }
-@media (max-width: 1023px) {
+@media (max-width: 991px) {
   .navbar-toggleable-md .navbar-nav .dropdown-menu {
     position: static;
     float: none;
@@ -1099,7 +1099,7 @@ pre {
     padding-left: 0;
   }
 }
-@media (min-width: 1024px) {
+@media (min-width: 992px) {
   .navbar-toggleable-md {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
@@ -1302,31 +1302,11 @@ body {
   background-color: #180f99;
   color: #ffffff;
 }
-.jq-selectbox .jq-selectbox__trigger-arrow,
-.jq-number__spin.minus:after,
-.jq-number__spin.plus:after {
-  transition: 0.4s;
-  border-top-color: currentColor;
-  border-bottom-color: currentColor;
+.jq-selectbox .jq-selectbox__trigger-arrow {
+  border-top-color: contrast(currentColor, #000000, #ffffff, 30%);
 }
-.jq-selectbox:hover .jq-selectbox__trigger-arrow,
-.jq-number__spin.minus:hover:after,
-.jq-number__spin.plus:hover:after {
+.jq-selectbox:hover .jq-selectbox__trigger-arrow {
   border-top-color: #180f99;
-  border-bottom-color: #180f99;
-}
-.xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_default,
-.xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_current,
-.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box > div > div.xdsoft_current {
-  color: #ffffff !important;
-  background-color: #180f99 !important;
-  box-shadow: none!important;
-}
-.xdsoft_datetimepicker .xdsoft_calendar td:hover,
-.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box > div > div:hover {
-  color: #ffffff !important;
-  background: #ff3366 !important;
-  box-shadow: none !important;
 }
 .cid-rPseQ04ykI .navbar {
   background: #ffffff;
@@ -2387,8 +2367,8 @@ body {
   background-color: #efefef;
 }
 .cid-rPBA4eSlCW .line {
-  background-color: #149dcc;
-  color: #149dcc;
+  background-color: #ffffff;
+  color: #ffffff;
   align: center;
   height: 2px;
   margin: 0 auto;
@@ -2404,10 +2384,33 @@ body {
     width: 100% !important;
   }
 }
-.cid-rPCUjifkwT {
-  padding-top: 45px;
-  padding-bottom: 90px;
-  background-image: url("../../../assets/images/background4.jpg");
+.cid-rSlV6uVXVP {
+  padding-top: 120px;
+  padding-bottom: 120px;
+  background-image: url("../../../assets/images/banner1-1355x359.jpg");
+}
+.cid-rSmSjPEO7d {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: #232323;
+}
+.cid-rSmSjPEO7d .line {
+  background-color: #232323;
+  color: #232323;
+  align: center;
+  height: 2px;
+  margin: 0 auto;
+}
+.cid-rSmSjPEO7d .section-text {
+  padding: 2rem 0;
+}
+.cid-rSmSjPEO7d .inner-container {
+  margin: 0 auto;
+}
+@media (max-width: 768px) {
+  .cid-rSmSjPEO7d .inner-container {
+    width: 100% !important;
+  }
 }
 .cid-rPBAwxNynl .navbar {
   background: #ffffff;
@@ -2906,8 +2909,8 @@ body {
   background-color: #efefef;
 }
 .cid-rPBAwIcQvq .line {
-  background-color: #149dcc;
-  color: #149dcc;
+  background-color: #efefef;
+  color: #efefef;
   align: center;
   height: 2px;
   margin: 0 auto;
@@ -2920,6 +2923,29 @@ body {
 }
 @media (max-width: 768px) {
   .cid-rPBAwIcQvq .inner-container {
+    width: 100% !important;
+  }
+}
+.cid-rSmSxK7ADb {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: #232323;
+}
+.cid-rSmSxK7ADb .line {
+  background-color: #232323;
+  color: #232323;
+  align: center;
+  height: 2px;
+  margin: 0 auto;
+}
+.cid-rSmSxK7ADb .section-text {
+  padding: 2rem 0;
+}
+.cid-rSmSxK7ADb .inner-container {
+  margin: 0 auto;
+}
+@media (max-width: 768px) {
+  .cid-rSmSxK7ADb .inner-container {
     width: 100% !important;
   }
 }
@@ -3420,8 +3446,8 @@ body {
   background-color: #efefef;
 }
 .cid-rPBF3o32cL .line {
-  background-color: #149dcc;
-  color: #149dcc;
+  background-color: #efefef;
+  color: #efefef;
   align: center;
   height: 2px;
   margin: 0 auto;
@@ -3434,6 +3460,29 @@ body {
 }
 @media (max-width: 768px) {
   .cid-rPBF3o32cL .inner-container {
+    width: 100% !important;
+  }
+}
+.cid-rSmSQ9y3sL {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: #232323;
+}
+.cid-rSmSQ9y3sL .line {
+  background-color: #232323;
+  color: #232323;
+  align: center;
+  height: 2px;
+  margin: 0 auto;
+}
+.cid-rSmSQ9y3sL .section-text {
+  padding: 2rem 0;
+}
+.cid-rSmSQ9y3sL .inner-container {
+  margin: 0 auto;
+}
+@media (max-width: 768px) {
+  .cid-rSmSQ9y3sL .inner-container {
     width: 100% !important;
   }
 }
@@ -5679,6 +5728,34 @@ body {
 .cid-rPCjxjBDmh .mbr-text P {
   text-align: left;
 }
+.cid-rSmQxAA5ve {
+  padding-top: 120px;
+  padding-bottom: 120px;
+  background-image: url("../../../assets/images/banner1-1355x359.jpg");
+}
+.cid-rSmRJHrth9 {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: #232323;
+}
+.cid-rSmRJHrth9 .line {
+  background-color: #232323;
+  color: #232323;
+  align: center;
+  height: 2px;
+  margin: 0 auto;
+}
+.cid-rSmRJHrth9 .section-text {
+  padding: 2rem 0;
+}
+.cid-rSmRJHrth9 .inner-container {
+  margin: 0 auto;
+}
+@media (max-width: 768px) {
+  .cid-rSmRJHrth9 .inner-container {
+    width: 100% !important;
+  }
+}
 .cid-rPCS9Vjba6 .navbar {
   background: #ffffff;
   transition: none;
@@ -6110,14 +6187,14 @@ body {
 }
 .cid-rPCSkywb4c {
   padding-top: 60px;
-  padding-bottom: 0px;
+  padding-bottom: 30px;
   background-color: #ffffff;
 }
 .cid-rPCSkywb4c .mbr-section-subtitle {
   color: #767676;
 }
 .cid-rPCSzkWcMA {
-  padding-top: 0px;
+  padding-top: 15px;
   padding-bottom: 15px;
   background-color: #efefef;
 }
@@ -6165,7 +6242,7 @@ body {
   color: #232323;
 }
 .cid-rPCSAOvUie {
-  padding-top: 0px;
+  padding-top: 15px;
   padding-bottom: 60px;
   background-color: #efefef;
 }
@@ -8200,8 +8277,8 @@ body {
   background-color: #efefef;
 }
 .cid-rPSGWntIsm .line {
-  background-color: #149dcc;
-  color: #149dcc;
+  background-color: #efefef;
+  color: #efefef;
   align: center;
   height: 2px;
   margin: 0 auto;
@@ -8214,6 +8291,29 @@ body {
 }
 @media (max-width: 768px) {
   .cid-rPSGWntIsm .inner-container {
+    width: 100% !important;
+  }
+}
+.cid-rSmSJ6s41O {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: #232323;
+}
+.cid-rSmSJ6s41O .line {
+  background-color: #232323;
+  color: #232323;
+  align: center;
+  height: 2px;
+  margin: 0 auto;
+}
+.cid-rSmSJ6s41O .section-text {
+  padding: 2rem 0;
+}
+.cid-rSmSJ6s41O .inner-container {
+  margin: 0 auto;
+}
+@media (max-width: 768px) {
+  .cid-rSmSJ6s41O .inner-container {
     width: 100% !important;
   }
 }

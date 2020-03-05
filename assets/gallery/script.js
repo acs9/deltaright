@@ -25,8 +25,6 @@
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
         var players = [];
 
-        $('.carousel-item.video-container img').css('display','none');
-
         /* google iframe api init function */
         window.onYouTubeIframeAPIReady = function() {
             var ytp = ytp || {};
@@ -102,8 +100,8 @@
             e.preventDefault();
             var $li = $(this).closest('li');
 
-            $li.parent().find('li').removeClass('active');
-            $li.addClass('active');
+            $li.parent().find('a').removeClass('active');
+            $(this).addClass('active');
 
             var $mas = $li.closest('section').find('.mbr-gallery-row');
             var filter = $(this).html().trim();
@@ -120,19 +118,24 @@
                 if ($.inArray(filter, tagsTrimmed) === -1 && !$li.hasClass('mbr-gallery-filter-all')) {
                     $elem.addClass('mbr-gallery-item__hided');
 
-                    $elem.css('left', '300px');
+                    setTimeout(function() {
+                        $elem.css('left', '300px');
+                    }, 200);
                 } else {
                     $elem.removeClass('mbr-gallery-item__hided');
                 }
             });
 
-            $mas.closest('.mbr-gallery-row').trigger('filter');
+            setTimeout(function() {
+                $mas.closest('.mbr-gallery-row').trigger('filter');
+            }, 50);
         });
     })
-    $(document).on('add.cards changeParameter.cards', function(event) {
+    $(document).on('add.cards changeParameter.cards changeButtonColor.cards', function(event) {
         var $section = $(event.target),
             allItem = $section.find('.mbr-gallery-filter-all');
         var filterList = [];
+
         $section.find('.mbr-gallery-item').each(function(el) {
             var tagsAttr = ($(this).attr('data-tags') || "").trim();
             var tagsList = tagsAttr.split(',');
@@ -140,20 +143,23 @@
             tagsList.map(function(el) {
                 var tag = el.trim();
 
-                if ($.inArray(tag, filterList) === -1)
+                if ($.inArray(tag, filterList) === -1 && tag.trim())
                     filterList.push(tag);
             });
         });
 
-        if ($section.find('.mbr-gallery-filter').length > 0 && $(event.target).find('.mbr-gallery-filter').hasClass('gallery-filter-active')) {
+        if ($section.find('.mbr-gallery-filter').length > 0 && $(event.target).find('.mbr-gallery-filter').hasClass('gallery-filter-active') && !$(event.target).find('.mbr-gallery-filter').hasClass('mbr-shop-filter')) {
             var filterHtml = '';
+
+            var classAttr = allItem.find('a').attr('class') || '';
+            classAttr = classAttr.replace(/(^|\s)active(\s|$)/, ' ').trim();
 
             $section.find('.mbr-gallery-filter ul li:not(li:eq(0))').remove();
 
             filterList.map(function(el) {
-                filterHtml += '<li><a class="btn btn-md btn-primary-outline" href>' + el + '</a></li>';
+                filterHtml += '<li><a class="' + classAttr + '" href>' + el + '</a></li>';
             });
-            $section.find('.mbr-gallery-filter ul').append(allItem).append(filterHtml);
+            $section.find('.mbr-gallery-filter ul').append(filterHtml);
 
         } else {
             $section.find('.mbr-gallery-item__hided').removeClass('mbr-gallery-item__hided');
@@ -163,7 +169,7 @@
         updateMasonry(event);
     });
 
-    $(document).on('change.cards', function(event) {
+    $(document).on('change.cards sortstop', function(event) {
         updateMasonry(event);
     });
 
@@ -171,88 +177,56 @@
         e.stopPropagation();
     });
 
-    var timeout2, timeout, objectLightBox;
+    var timeout;
+    var timeout2;
+
+    function fitLBtimeout() {
+        clearTimeout(timeout);
+        timeout = setTimeout(fitLightbox, 50);
+    }
 
     /* Lightbox Fit */
-    function styleVideo($carouselItem, wndH, windowPadding, bottomPadding){
-        $carouselItem.css({
-            'top': windowPadding,
-            'height': wndH - 2 * windowPadding - 2 * bottomPadding
-        })
-    }
-
-    function styleImg($carouselItem, wndH, wndW, windowPadding, bottomPadding){
-        var $currentImg = $carouselItem.find('img');
-
-        var setWidth, setTop;
-        var lbW = $currentImg[0].naturalWidth;
-        var lbH = $currentImg[0].naturalHeight;
-
-         // height change
-        if (wndW / wndH > lbW / lbH) {
-            var needH = wndH - bottomPadding * 2;
-            setWidth = needH * lbW / lbH;
-        } else { // width change
-            setWidth = wndW - bottomPadding * 2;
-        }
-        // check for maw width
-        setWidth = setWidth >= lbW ? lbW : setWidth;
-
-        // set top to vertical center
-        setTop = (wndH - setWidth * lbH / lbW) / 2;
-
-        $currentImg.css({
-            width: parseInt(setWidth),
-            height: setWidth * lbH / lbW
-        });
-        $carouselItem.css('top', setTop + windowPadding);
-    }
-
-    function timeOutCarousel($lightBox, wndW, wndH, windowPadding, bottomPadding, flagResize){
-        var $carouselItems = $lightBox.find('.modal-dialog .carousel-item');
-
-        $carouselItems.each(function() {
-            if ((!flagResize && !$(this)[0].classList.contains('carousel-item-next') && !$(this)[0].classList.contains('carousel-item-prev')) || (flagResize && !$(this)[0].classList.contains('active'))){
-                if ($(this)[0].classList.contains('video-container')){
-                    styleVideo($(this), wndH, windowPadding, bottomPadding);
-                }
-                else{
-                    styleImg($(this), wndH, wndW, windowPadding, bottomPadding);
-                }
-            }
-        });
-    }
-
     function fitLightbox() {
+        var $lightbox = $('.mbr-gallery .modal');
+        if (!$lightbox.length) {
+            return;
+        }
+
         var windowPadding = 0;
         var bottomPadding = 10;
         var wndW = $(window).width() - windowPadding * 2;
         var wndH = $(window).height() - windowPadding * 2;
 
-        if (!objectLightBox) {
-            return;
-        }
+        $lightbox.each(function() {
+            var setWidth, setTop;
+            var $modalDialog = $(this).find('.modal-dialog');
+            var $currentImg = $modalDialog.find('.carousel-item.active > img');
 
-        var $carouselItemActive, flagResize = false;
-        if (objectLightBox.find('.modal-dialog .carousel-item.carousel-item-next, .modal-dialog .carousel-item.carousel-item-prev').length){
-            $carouselItemActive = objectLightBox.find('.modal-dialog .carousel-item.carousel-item-next, .modal-dialog .carousel-item.carousel-item-prev');
-        }
-        else{
-            $carouselItemActive = objectLightBox.find('.modal-dialog .carousel-item.active');
-            flagResize = true;
-        }
+            if ($modalDialog.find('.carousel-item.prev > img, .carousel-item.next > img').length) {
+                $currentImg = $modalDialog.find('.carousel-item.prev > img, .carousel-item.next > img').eq(0);
+            }
 
-        if($carouselItemActive[0].classList.contains('video-container')){
-            styleVideo($carouselItemActive, wndH, windowPadding, bottomPadding);
-        }
-        else{
-            styleImg($carouselItemActive, wndH, wndW, windowPadding, bottomPadding);
-        }
+            var lbW = $currentImg[0].naturalWidth;
+            var lbH = $currentImg[0].naturalHeight;
 
-        clearTimeout(timeout);
+            // height change
+            if (wndW / wndH > lbW / lbH) {
+                var needH = wndH - bottomPadding * 2;
+                setWidth = needH * lbW / lbH;
+            } else { // width change
+                setWidth = wndW - bottomPadding * 2;
+            }
+            // check for maw width
+            setWidth = setWidth >= lbW ? lbW : setWidth;
 
-        timeout = setTimeout( timeOutCarousel, 200, objectLightBox, wndW, wndH, windowPadding, bottomPadding, flagResize);
+            // set top to vertical center
+            setTop = (wndH - setWidth * lbH / lbW) / 2;
 
+            $modalDialog.css({
+                width: parseInt(setWidth),
+                top: setTop + windowPadding
+            });
+        });
     }
 
     /* pause/start video on different events and fit lightbox */
@@ -261,7 +235,7 @@
     $window.on('show.bs.modal', function(e) {
         clearTimeout(timeout2);
 
-        timeout2 = setTimeout(function() {
+        var timeout2 = setTimeout(function() {
             var index = $(e.relatedTarget).parent().index();
             var slide = $(e.target).find('.carousel-item').eq(index).find('.mbr-background-video');
             $(e.target).find('.carousel-item .mbr-background-video');
@@ -271,10 +245,7 @@
             }
         }, 500);
 
-        objectLightBox = $(e.target);
-
-        fitLightbox();
-
+        fitLBtimeout();
     });
 
     $window.on('slide.bs.carousel', function(e) {
@@ -285,7 +256,7 @@
         }
     });
 
-    $(window).on('resize load', fitLightbox);
+    $(window).on('resize load', fitLBtimeout);
 
     $window.on('slid.bs.carousel', function(e) {
         var ytv = $(e.target).find('.carousel-item.active .mbr-background-video');
@@ -294,14 +265,13 @@
             var player = players[+ytv.attr('data-video-num')];
             player.playVideo ? player.playVideo() : player.play();
         }
-        
+
+        fitLBtimeout();
     });
 
     $window.on('hide.bs.modal', function(e) {
         players.map(function(player, i) {
             player.pauseVideo ? player.pauseVideo() : player.pause();
         });
-
-        objectLightBox = null;
     });
 }(jQuery));
